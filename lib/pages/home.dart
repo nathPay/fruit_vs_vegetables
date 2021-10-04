@@ -151,6 +151,7 @@ class Home extends HookWidget {
                                     (value) => Navigator.of(context)
                                         .pushReplacementNamed('/characterList'),
                                     onError: (e) => {
+                                      debugPrint(e.toString()),
                                       isSomethingWrong.value = true,
                                       loading.value = false,
                                     },
@@ -184,6 +185,7 @@ class Home extends HookWidget {
                               (value) => Navigator.of(context)
                                   .pushReplacementNamed('/characterList'),
                               onError: (e) => {
+                                debugPrint(e.toString()),
                                 isSomethingWrong.value = true,
                                 loading.value = false,
                               },

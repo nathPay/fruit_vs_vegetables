@@ -7,11 +7,13 @@ import 'firebase/@index.dart';
 import 'package:provider/provider.dart';
 import 'firebase/firebase.dart';
 import 'firebase/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   // Prepare firebase and API
   WidgetsFlutterBinding.ensureInitialized();
   await initFirebase();
+
   var _characterApi = CharacterApi();
   var _ennemiesApi = EnnemiesApi();
   var _fightsApi = FightsApi();

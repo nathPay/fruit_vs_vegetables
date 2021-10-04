@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fruitsvsvegetables">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
         android:label="fruits_vs_vegetables"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

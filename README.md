@@ -57,3 +57,35 @@ A cool afk fight game where you can smash vegetables!!
 
 ## Getting Started
 
+**Tested on Android only**
+
+**init project with:** 
+`flutter pub get`
+
+**build with:**
+`flutter build apk --split-per-abi`
+
+apk output: `build/app/outputs/flutter-apk/`
+
+**Firebase emulator (not mandatory, app is working in production)**
+
+run:
+`firebase emulators:start --import=./exports/`
+
+## Technical Stack
+
+Firebase:
+- Auth
+- Firestore
+Flutter 2.5.1
+
+## Feedback
+
+### Change from the spec
+- retrieve the list of fights ~~for a character~~ for all characters with the result (won/loose)
+- No real lobby for the fight: 10 ennemies exists and they matchs with the same rank of the player. Player cannot pass rank 10.
+
+### Issue with testing
+I realized that I'm not experienced with testing in flutter at all, so it takes me a lot of time to produce test that are not working... 
+Realizing that HookWidget doesn't work the way I tried to test them.
+And realizing that Firebase emulators is not enough to test the app.
