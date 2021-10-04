@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "875689937765",
+    "project_id": "fruitvsvegetable-3c750",
+    "storage_bucket": "fruitvsvegetable-3c750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875689937765:android:2bf90a4edd1aa3b66f6f8c",
+        "android_client_info": {
+          "package_name": "com.fruitsvsvegetables"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875689937765-6aop0rrk5kddaqqtrosk8iedl28jkvft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqovMMNievpUICFW1fwmm9aLOChO5F7oI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875689937765-6aop0rrk5kddaqqtrosk8iedl28jkvft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
