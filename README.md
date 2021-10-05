@@ -77,7 +77,7 @@ run:
 Firebase:
 - Auth
 - Firestore
-Flutter 2.5.1
+Flutter 2.5.2
 
 ## Feedback
 

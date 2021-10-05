@@ -22,6 +22,8 @@ class Combat extends StatefulWidget {
     required this.intro,
     required this.playerTurn,
     required this.isPaused,
+    required this.ennemieAnimation,
+    required this.playerAnimation,
   }) : super(key: key);
 
   final Future<void> Function() startCombat;
@@ -34,6 +36,8 @@ class Combat extends StatefulWidget {
   final String intro;
   final bool playerTurn;
   final ValueNotifier<bool> isPaused;
+  final AnimationController ennemieAnimation;
+  final AnimationController playerAnimation;
 
   @override
   _CombatState createState() => _CombatState();
@@ -142,6 +146,7 @@ class _CombatState extends State<Combat> {
                               FightStand(
                                 type: widget.playerData['type'],
                                 team: 'fruits',
+                                animation: widget.playerAnimation,
                               ),
                             ],
                           ),
@@ -170,6 +175,7 @@ class _CombatState extends State<Combat> {
                                 child: FightStand(
                                   type: widget.ennemieData['rank'],
                                   team: 'vegetables',
+                                  animation: widget.ennemieAnimation,
                                 ),
                               ),
                             ],

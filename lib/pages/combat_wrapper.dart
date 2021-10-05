@@ -20,7 +20,7 @@ class CombatWrapper extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    final timer = useState(0);
+    final timer = useState(40);
     Map<String, dynamic> playerData = charactersData['fruit']['data'];
     Map<String, dynamic> ennemieData = charactersData['vegetable'];
     final playerHp = useState(playerData['health']);
@@ -29,6 +29,18 @@ class CombatWrapper extends HookWidget {
     var historicList = useState(<Map<String, dynamic>>[]);
     final intro = useState('3');
     final isPaused = useState(false);
+    final _playerAnimationController = useAnimationController(
+      duration: Duration(milliseconds: 250),
+      initialValue: 0,
+      lowerBound: 0,
+      upperBound: 150,
+    );
+    final _ennemieAnimationController = useAnimationController(
+      duration: Duration(milliseconds: 250),
+      initialValue: 0,
+      lowerBound: -150,
+      upperBound: 0,
+    );
 
     // Start the turn of the active player.
     // Try to attack -> Create text that describe the attack -> update values and pass the turn
@@ -36,7 +48,7 @@ class CombatWrapper extends HookWidget {
       var rand = Random();
       var action = '';
       // Check timer to avoid infinit combat
-      if (timer.value < 30) {
+      if (timer.value > 0) {
         if (playerTurn.value) {
           int playerAttack;
           if (playerData['attack'] > 0) {
@@ -58,9 +70,20 @@ class CombatWrapper extends HookWidget {
           if (damages == 0) {
             action = 'Throw a $playerAttack but miss the attack.';
           } else if (isMagikUsed) {
+            _playerAnimationController
+                .animateTo(
+                  150,
+                  curve: Curves.bounceIn,
+                )
+                .then(
+                  (value) => _playerAnimationController.reverse(),
+                );
             action =
                 'Throw a $playerAttack and use his magik to deal $damages !!';
           } else {
+            _playerAnimationController.animateTo(75).then(
+                  (value) => _playerAnimationController.reverse(from: 75),
+                );
             action = 'Throw a $playerAttack and deal $damages !!';
           }
         } else {
@@ -86,9 +109,20 @@ class CombatWrapper extends HookWidget {
           if (damages == 0) {
             action = 'Throw a $ennemieAttack but miss the attack.';
           } else if (isMagikUsed) {
+            _ennemieAnimationController
+                .animateTo(
+                  -150,
+                  curve: Curves.bounceIn,
+                )
+                .then(
+                  (value) => _ennemieAnimationController.forward(),
+                );
             action =
                 'Throw a $ennemieAttack and use his magik to deal $damages !!';
           } else {
+            _ennemieAnimationController.animateTo(-75).then(
+                  (value) => _ennemieAnimationController.forward(from: -75),
+                );
             action = 'Throw a $ennemieAttack and deal $damages !!';
           }
         }
@@ -119,7 +153,14 @@ class CombatWrapper extends HookWidget {
               seconds: 1,
             ),
             () => {
-              timer.value = timer.value + 1,
+              if (timer.value <= 0)
+                {
+                  timer.value = timer.value,
+                }
+              else
+                {
+                  timer.value = timer.value - 1,
+                }
             },
           );
         } else {
@@ -258,6 +299,8 @@ class CombatWrapper extends HookWidget {
           intro: intro.value,
           playerTurn: playerTurn.value,
           isPaused: isPaused,
+          ennemieAnimation: _ennemieAnimationController,
+          playerAnimation: _playerAnimationController,
         ),
       ),
     );

@@ -8,10 +8,12 @@ class FightStand extends HookWidget {
     Key? key,
     required this.type,
     required this.team,
+    this.animation,
   }) : super(key: key);
 
   final int type;
   final String team;
+  final AnimationController? animation;
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,37 @@ class FightStand extends HookWidget {
             ),
           ),
         ),
-        Transform.translate(
-          offset: Offset(0, -40),
-          child: Container(
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.0011) // perspective
-              ..rotateX(team == 'fruits' ? -0.3 : 0.3)
-              ..rotateY(0.6),
-            transformAlignment: Alignment.center,
-            alignment: Alignment.center,
-            child: Image.asset('assets/$team/$type.png'),
+        if (animation != null)
+          AnimatedBuilder(
+            animation: animation!,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(animation!.value, -40),
+                child: Container(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.0011) // perspective
+                    ..rotateX(team == 'fruits' ? -0.3 : 0.3)
+                    ..rotateY(0.6),
+                  transformAlignment: Alignment.center,
+                  alignment: Alignment.center,
+                  child: Image.asset('assets/$team/$type.png'),
+                ),
+              );
+            },
           ),
-        ),
+        if (animation == null)
+          Transform.translate(
+            offset: Offset(0, -40),
+            child: Container(
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.0011) // perspective
+                ..rotateX(team == 'fruits' ? -0.3 : 0.3)
+                ..rotateY(0.6),
+              transformAlignment: Alignment.center,
+              alignment: Alignment.center,
+              child: Image.asset('assets/$team/$type.png'),
+            ),
+          ),
       ],
     );
   }
